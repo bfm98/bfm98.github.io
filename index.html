@@ -197,7 +197,7 @@
         <li onclick="selectItem('Front Bumper', 500)">Front Bumper - $500</li>
         <li onclick="selectItem('Grille', 500)">Grille - $500</li>
         <li onclick="selectItem('Hood', 500)">Hood - $500</li>
-        <li onclick="selectItem('Interior Color', 1100)">Interior Color - $1100</li>
+        <li onclick="selectItem('Interior Respray', 1100)">Interior Respray - $1100</li>
         <li onclick="selectItem('Left Fender', 500)">Left Fender - $500</li>
         <li onclick="selectItem('Livery', 500)">Livery - $500</li>
         <li onclick="selectItem('Ornaments', 500)">Ornaments - $500</li>
@@ -313,12 +313,21 @@
                 const summaryElement = document.getElementById('summary');
                 let upgradesPurchased = "";
 
+                let resprays = "";
                 for (const [name, info] of Object.entries(selectedItems)) {
-                    upgradesPurchased += `${name}, `;
+                    if(name.includes("Respray")){
+                        resprays += `${name.charAt(0)}/`
+                    }else{
+                        upgradesPurchased += `${name}, `;
+                    }
                 }
+                //remove last slash
+                resprays = resprays.slice(0, -1)
+                resprays += " Respray"
+                upgradesPurchased += resprays
 
                 // Remove the trailing comma and space
-                upgradesPurchased = upgradesPurchased.slice(0, -2);
+                //upgradesPurchased = upgradesPurchased.slice(0, -2);
 
                 const repairCost = parseInt(document.getElementById('repairCost').value) || 0;
                 const total = calculateTotal(selectedItems) + repairCost;
